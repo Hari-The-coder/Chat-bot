@@ -1,0 +1,68 @@
+let prompt = document.querySelector("#prompt");
+let chatContainer = document.querySelector(".chat-box");
+let info = document.querySelector(".chat_ai");
+let message = info.innerHTML;
+
+const apiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyBO23YdRDN2xstDiwxBGk78JBbDN24YS0E";
+
+// creating an object 
+let user = {
+  datas: null,
+};
+
+async function generateResponse(AIchatbox) {
+  let text = AIchatbox.querySelector(".chat_ai");
+  let requestOptions = {
+    method: "POST",
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      "contents": [{
+        "parts": [{ "text": user.datas }]
+      }]
+    })
+  };
+
+  try {
+    let response = await fetch(apiUrl, requestOptions);
+    let data = await response.json();
+    let apiResponse = data.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, "1").trim();
+    text.innerHTML = apiResponse;
+  } catch (error) {
+    console.log(error);
+    let errorChatbox = createChatbox("Sorry, there was an issue generating the response. Please try again.", "chat-ai-error");
+    chatContainer.appendChild(errorChatbox);
+  }
+}
+
+// creating element 
+function createChatbox(html, classes) {
+  let div = document.createElement("div");
+  div.innerHTML = html;
+  div.classList.add(classes);
+  return div;
+}
+
+function handleChatResponse(message) {
+  user.datas = message;
+
+  if (!user.datas.trim()) {
+    return; // Prevent sending empty messages
+  }
+
+  let userChatbox = createChatbox(user.datas, "chat-box");
+  prompt.value = "";
+  chatContainer.appendChild(userChatbox);
+
+  setTimeout(() => {
+    let AIchatbox = createChatbox(message, "chat_ai");
+    chatContainer.appendChild(AIchatbox);
+    generateResponse(AIchatbox);
+  }, 600);
+}
+
+// to push your chats in chat section 
+prompt.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    handleChatResponse(prompt.value);
+  }
+});

@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot UI Clone</title>
+    <link rel="stylesheet" href="style.css">
+  
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=image,mic,send" />
+ 
+</head>
+<body>
+    <div class="chatcontainer" style="overflow: auto;">
+        <div class="chat-header"> <div style="display: flex-row;"> <img src="ChatGPT-Logo-PNG-Image-File.png" alt="" style="width: 35px; height: 35px; justify-content: start;  "> Open AI </div> </div>
+        <div class="chat-box" id="chatBox" >
+        <div class="chat_ai"  id="ai-chat" style=" border: 1px solid wheat;
+    border-radius: 0.2rem ; width: 200px;" > 
+        
+        <div style="display: flex;">
+            <img src="ChatGPT-Logo-PNG-Image-File.png" alt="" style="width: 35px; height: 35px; border-radius: 2rem;  margin-top: 4px; "> 
+            <p style="margin-top: 15px; margin-left: 5px; "> Just ask me ?</p>
+        </div>  
+            <br>
+          
+        </div>
+        <br>
+        <div class="chat-person"></div>
+        
+        </div>
+        <div class="chat-input">
+            <input type="text" id="prompt" placeholder="Type your message..." autofocus>
+            
+           
+            <button id="image"><span class="material-symbols-outlined">
+                <input type="file" hidden>
+                image
+                </span>
+            <input type="file" accept="images/*" hidden>
+            </button>
+            <button><span class="material-symbols-outlined">
+                mic
+                </span></button>
+            <button id="send" ><span class="material-symbols-outlined">
+                send
+                </span></button>
+        </div>
+    </div>
+    <script src="script1.js"></script>
+</body>
+</html>
+
